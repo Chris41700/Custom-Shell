@@ -6,7 +6,6 @@
 
 void shellLoop();
 char *read_line(void);
-char **split_line(char *line);
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +23,6 @@ void shellLoop()
     {
         printf("@ ");
         line = read_line();
-        args = split_line(line);
         status = execute(args);
 
         if (args[0] != NULL)
@@ -35,4 +33,12 @@ void shellLoop()
         free(line);
         free(args);
     } while (status)
+}
+
+char *read_line(void)
+{
+    char *line;
+    size_t bufsize = 0;
+    getline(&line, &bufsize, stdin);
+    return line;
 }
