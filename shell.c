@@ -6,6 +6,7 @@
 
 void shellLoop();
 char *read_line(void);
+int execute(char *args);
 
 int main(int argc, char *argv[])
 {
@@ -15,24 +16,17 @@ int main(int argc, char *argv[])
 
 void shellLoop()
 {
-    char *line;
-    char **args;
+    char *args;
     int status;
 
     do
     {
         printf("@ ");
-        line = read_line();
+        args = read_line();
         status = execute(args);
 
-        if (args[0] != NULL)
-        {
-            execute(args);
-        }
-
-        free(line);
         free(args);
-    } while (status)
+    } while (status);
 }
 
 char *read_line(void)
@@ -41,4 +35,42 @@ char *read_line(void)
     size_t bufsize = 0;
     getline(&line, &bufsize, stdin);
     return line;
+}
+
+int execute(char *args)
+{
+    pid_t pid;
+    int status;
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        printf("Fork unsuccessful");
+        return 1;
+    }
+
+    if (pid == 0)
+    {
+        if (strcmp(args, "tree*"))
+        {
+            execl("tree", args, NULL);
+        }
+        else if (strcmp(args, "list*"))
+        {
+            execl("list", args, NULL);
+        }
+        else if (strcmp(args, "path*"))
+        {
+            execl("path", args, NULL);
+        }
+        else if (strcmp(args, "exit*"))
+        {
+            execl("exit", args, NULL);
+        }
+    }
+
+    waitpid(pid, &status, WUNTRACED);
+
+    return 1;
 }
