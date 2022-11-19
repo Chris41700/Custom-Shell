@@ -4,17 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-void shellLoop();
+void shell_loop();
 char *read_line(void);
 int execute(char *args);
 
 int main(int argc, char *argv[])
 {
-    shellLoop();
+    shell_loop();
     return 0;
 }
 
-void shellLoop()
+void shell_loop()
 {
     char *args;
     int status;
