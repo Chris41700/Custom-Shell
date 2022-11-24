@@ -1,3 +1,4 @@
+//By Patrick Lisiecki
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -28,6 +29,9 @@ int main() {
     }
     //Child process returns a 0
     else if (process == 0) {
+        //Print to terminal
+        printf("Getting current working directory...\n");
+
         //Connect write end of the pipe to the file number of stdout
         dup2(link[1], STDOUT_FILENO);
 
@@ -54,8 +58,10 @@ int main() {
             exit(1);
         }
         else {
+            int pipeBufferLength = strlen(pipeBuffer);
+            pipeBuffer[pipeBufferLength - 1] = '\0';
             //Print the output to the terminal
-            printf("%s", pipeBuffer);
+            printf("Current directory: %s\n", pipeBuffer);
         }
 
         //Close read end of pipe
@@ -71,8 +77,9 @@ int main() {
             exit(1);
         }
         else {
+            printf("\nWriting current directory to file...")
             //Print the current working directory to the file
-            for (int x = 0; x <= strlen(pipeBuffer); x++) {
+            for (int x = 0; x < strlen(pipeBuffer); x++) {
                 fputc(pipeBuffer[x], pathPtr);
             }
         }
@@ -83,6 +90,8 @@ int main() {
         //Change the name of t2.txt to path.txt
         //Works using the current directory the text file is in
         //execlp("mv", "mv", "*path of file*", "path.txt", NULL);
+
+        printf("\nRenaming file to path.txt...");
 
         //Renaming t2.txt using rename function
         int renameToPath = rename("t2.txt", "path.txt");
@@ -101,22 +110,26 @@ int main() {
             exit(1);
         }
         else {
+            printf("\nReading from tree.txt...\n");
             //Read from file into buffer
             fread(&fileBuffer, sizeof(char), sizeof(fileBuffer), treePtr);
 
+            int fileBufferLength = strlen(fileBuffer);
+            fileBuffer[fileBufferLength - 1] = '\0';
+
             //Check to make sure file was read correctly
-            printf("\nTree.txt: %s", fileBuffer);
+            printf("\nTree.txt: %s\n", fileBuffer);
         }
 
         //Close file
         fclose(treePtr);
 
         //Concatenate output from current working directory and output from tree.txt
-        strcat(finalResult, fileBuffer);
         strcat(finalResult, pipeBuffer);
+        strcat(finalResult, fileBuffer);
 
         //Print concatenation to check
-        printf("\nFinal result: %s", finalResult);
+        printf("\nFinal result: %s\n", finalResult);
 
         //Open t3.txt in write mode
         FILE* logPtr;
@@ -127,14 +140,17 @@ int main() {
             exit(1);
         }
         else {
+            printf("\nWriting to t3.txt...");
             //Write the concatenated output to t3.txt
-            for (int x = 0; x <= strlen(finalResult); x++) {
+            for (int x = 0; x < strlen(finalResult); x++) {
                 fputc(finalResult[x], logPtr);
             }
         }
 
         //Close file
         fclose(logPtr);
+
+        printf("\nRenaming file to log.txt...");
 
         //Rename t3.txt to log.txt
         int renameToLog = rename("t3.txt", "log.txt");
@@ -143,6 +159,8 @@ int main() {
             printf("Error renaming t3.txt!");
             exit(1);
         }
+
+        printf("\nDeleting files...");
 
         //Execute remove command for tree.txt and path.txt
         execlp("rm", "rm", "tree.txt", "path.txt", NULL);
