@@ -3,6 +3,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
@@ -17,10 +18,6 @@ int main(int argc, char *argv[])
 
     pid = fork(); /* fork a child process */
 
-    printf("Clearing the screen...\n");
-    sleep(3);
-    system("clear"); // clear the screen
-
     if (pid < 0)
     { /* check for error */
         fprintf(stderr, "Fork Failed.");
@@ -28,15 +25,22 @@ int main(int argc, char *argv[])
     }
     else if (pid == 0)
     { /* child process */
-        printf("List the contents of the current directory\n");
+        printf("Clearing the screen...\n");
+        sleep(3);
+        system("clear"); // clear the screen
+
+        printf("List the contents of the current directory:\n");
+
+        dup2(arr[1], 1); /* duplicate the writing end of pipe */
 
         close(arr[0]);                  /* close reading end of pipe */
-        dup2(arr[1], 1);                /* duplicate the writing end of pipe */
         close(arr[1]);                  /* close writing end of pipe */
         execlp("ls", "ls", "-l", NULL); /* execute ls -l command to list files */
     }
     else
     {
+        waitpid(pid, NULL, 0); /* wait for child process to end */
+
         ssize_t readBytes = read(arr[0], &fileBuffer, sizeof(fileBuffer));
 
         if (readBytes == -1)
@@ -45,12 +49,11 @@ int main(int argc, char *argv[])
             exit(1);
         }
 
-        fileBuffer[strlen(fileBuffer) - 1] = '\0';
+        int fileBufferLength = strlen(fileBuffer) - 1;
+        fileBuffer[strlen(fileBufferLength - 1] = '\0';
 
         close(arr[0]); /* close reading end of pipe */
         close(arr[1]); /* close writing end of pipe */
-
-        waitpid(pid, NULL, 0); /* wait for child process to end */
 
         char *filename = "t1.txt";
 
