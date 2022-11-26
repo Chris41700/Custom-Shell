@@ -10,67 +10,101 @@ int execute(char *args);
 
 int main(int argc, char *argv[])
 {
+    // Run the shell environment
     shell_loop();
     return 0;
 }
 
 void shell_loop()
 {
+    // Store the command input
     char *args;
+
+    // Exit status
     int status;
 
     do
     {
         printf("@ ");
-        args = read_line();
-        status = execute(args);
 
-        free(args);
+        // Run read line function
+        args = read_line();
+
+        // Run the execute function
+        status = execute(args);
     } while (status);
+
+    // Free allocated memory
+    free(args);
 }
 
 char *read_line(void)
 {
+    // Stores the user input
     char *line;
+
+    // Buffer size is determined by input
     size_t bufsize = 0;
-    getline(&line, &bufsize, stdin);
+
+    // Reads in the input
+    if (getline(&line, &bufsize, stdin) == -1)
+    {
+        printf("Could not allocate memory for buffer");
+        exit(1);
+    }
+
+    // Length of line
+    size_t length = strlen(line);
+
+    // Remove extra character attach to the end with termination character
+    if (line[length - 1] == '\n')
+    {
+        line[length - 1] = '\0';
+    }
+
     return line;
 }
 
 int execute(char *args)
 {
+    // Create process id
     pid_t pid;
-    int status;
 
+    // Fork the parent process to create a child process
     pid = fork();
 
+    // All commands executable in the shell
+    char *commandList[4] = {"tree*", "list*", "path*", "exit*"};
+
+    // Checks fork is unsuccessful
     if (pid < 0)
     {
         printf("Fork unsuccessful");
         return 1;
     }
-
-    if (pid == 0)
+    // Child process
+    else if (pid == 0)
     {
-        if (strcmp(args, "tree*"))
+        // String compare user input with command list to execute the file
+        if (strcmp(args, commandList[0]) == 0)
         {
-            execl("tree", args, NULL);
+            execlp("./tree", args, (char *)NULL);
         }
-        else if (strcmp(args, "list*"))
+        else if (strcmp(args, commandList[1]) == 0)
         {
-            execl("list", args, NULL);
+            execlp("./list", args, (char *)NULL);
         }
-        else if (strcmp(args, "path*"))
+        else if (strcmp(args, commandList[2]) == 0)
         {
-            execl("path", args, NULL);
+            execlp("./path", args, (char *)NULL);
         }
-        else if (strcmp(args, "exit*"))
+        else if (strcmp(args, commandList[3]) == 0)
         {
-            execl("exit", args, NULL);
+            execlp("./exit", args, (char *)NULL);
         }
+
+        // Wait until child process completes
+        wait(NULL);
+
+        return 1;
     }
-
-    waitpid(pid, &status, WUNTRACED);
-
-    return 1;
-}
