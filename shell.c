@@ -31,7 +31,7 @@ void shell_loop()
         // Run read line function
         args = read_line();
 
-        // Run the execute function
+        // Run execute function
         status = execute(args);
     } while (status);
 
@@ -68,7 +68,7 @@ char *read_line(void)
 
 int execute(char *args)
 {
-    // Create process id
+    // Create parent process
     pid_t pid;
 
     // Fork the parent process to create a child process
