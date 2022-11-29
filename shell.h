@@ -1,3 +1,7 @@
+// Group Name: Incognito Mode
+// Leader: Christopher Hui
+// Group Members: Elijah Estimada, Khadijah Akter, Patrick Lisiecki, Oscar Jara
+
 #ifndef SHELL_H
 #define SHELL_H
 

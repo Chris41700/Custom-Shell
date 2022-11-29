@@ -1,43 +1,53 @@
+// By Oscar Jara
 #include "shell.h"
 
 void run_exit(char *updateHistory[], int size)
 {
     printf("Printing the command history...\n");
 
+    // Print every command in command history
     for (int i = 0; i < size; i++)
     {
         printf("%s\n", updateHistory[i]);
     }
 
-    pid_t pid;    // declaring process identifie
-    pid = fork(); // fork a child process
+    // Create a parent process
+    pid_t pid;
 
+    // Fork a process
+    pid = fork();
+
+    // Argument list for ls -l
+    char *arg_list[] = {
+        "ls",
+        "-l",
+        NULL};
+
+    // Forking was unsuccessful
     if (pid < 0)
     {
-        // Error occurred
         perror("Forked Failed\n");
         exit(1);
     }
+    // Child process
     else if (pid == 0)
-    { // child for pid
-        // Child
-        char *arg_list[] = {
-            "ls",
-            "-l",
-            NULL};
-
-        execvp("ls", arg_list); // Execute ls -l
+    {
+        // Display detailed list of all content in current directory
+        execvp("ls", arg_list);
     }
     else
     {
-
-        waitpid(pid, NULL, 0);                                   // waits only for terminated chiildren
+        // Waits for child process to terminate
+        waitpid(pid, NULL, 0);
         printf("\nHit the return key to terminate the shell\n"); // prints
-        char ch = getchar();                                     // Waits for return
 
+        // Get character from keyboard
+        char ch = getchar();
+
+        // Terminate the shell when the return key is entered
         if (ch == '\n')
         {
-            exit(0);
+            exit(1);
         }
     }
 }
