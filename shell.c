@@ -9,6 +9,8 @@ void shell_loop();
 char *read_line(void);
 int execute(char *args);
 
+char *updateHistory[4];
+
 int main(int argc, char *argv[])
 {
     // Run the shell environment
@@ -63,6 +65,18 @@ char *read_line(void)
         line[length - 1] = '\0';
     }
 
+    int count = 0;
+
+    if (count < 4)
+    {
+        updateHistory[count] = line;
+        count++;
+    }
+    else
+    {
+        count = count % 4;
+    }
+
     return line;
 }
 
@@ -101,7 +115,7 @@ int execute(char *args)
         }
         else if (strcmp(args, commandList[3]) == 0)
         {
-            execlp("./exit", args, (char *)NULL);
+            execv("./exit", updateHistory);
         }
 
         // Wait until child process completes
