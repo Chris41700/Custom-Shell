@@ -1,11 +1,6 @@
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "shell.h"
 
-int main(int argc, char *argv[])
+void run_list()
 {
     // Create a parent process
     pid_t pid;
@@ -20,8 +15,8 @@ int main(int argc, char *argv[])
 
     if (pid < 0)
     { /* check for error */
-        fprintf(stderr, "Fork Failed.");
-        return 1;
+        perror("Fork failed\n");
+        exit(1);
     }
     else if (pid == 0)
     { /* child process */
@@ -29,13 +24,14 @@ int main(int argc, char *argv[])
         sleep(3);
         system("clear"); // clear the screen
 
-        printf("List the contents of the current directory:\n");
+        printf("List the contents of the current directory\n");
 
         dup2(arr[1], 1); /* duplicate the writing end of pipe */
 
-        close(arr[0]);                  /* close reading end of pipe */
-        close(arr[1]);                  /* close writing end of pipe */
-        execlp("ls", "ls", "-l", NULL); /* execute ls -l command to list files */
+        execlp("ls", "ls", "-l", (char *)NULL); /* execute ls -l command to list files */
+
+        close(arr[0]); /* close reading end of pipe */
+        close(arr[1]); /* close writing end of pipe */
     }
     else
     {
@@ -45,12 +41,13 @@ int main(int argc, char *argv[])
 
         if (readBytes == -1)
         {
-            printf("Read was unsuccessful!");
+            perror("Read was unsuccessful\n");
             exit(1);
         }
 
-        int fileBufferLength = strlen(fileBuffer) - 1;
-        fileBuffer[strlen(fileBufferLength - 1] = '\0';
+        printf(fileBuffer);
+
+        fileBuffer[strlen(fileBuffer) - 1] = '\0';
 
         close(arr[0]); /* close reading end of pipe */
         close(arr[1]); /* close writing end of pipe */
@@ -61,11 +58,11 @@ int main(int argc, char *argv[])
 
         if (fp == NULL)
         {
-            printf("Error opening the file %s", filename);
-            return -1;
+            perror("Error opening file\n");
+            exit(1);
         }
 
-        printf("Writing to t1.txt...\n");
+        printf("\nWriting to t1.txt...\n");
 
         for (int i = 0; i < strlen(fileBuffer); i++)
         {
@@ -84,6 +81,4 @@ int main(int argc, char *argv[])
             printf("The file could not be renamed.\n");
         }
     }
-
-    return 0;
 }

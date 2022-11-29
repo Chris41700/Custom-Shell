@@ -1,18 +1,12 @@
-#include <stdio.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
+#include "shell.h"
 
-int main(int argc, char *argv[])
+void run_exit(char *updateHistory[], int size)
 {
     printf("Printing the command history...\n");
 
-    int count = 0;
-    while (count < 4)
+    for (int i = 0; i < size; i++)
     {
-        printf(argv[count]);
-        count++;
+        printf("%s\n", updateHistory[i]);
     }
 
     pid_t pid;    // declaring process identifie
@@ -21,11 +15,11 @@ int main(int argc, char *argv[])
     if (pid < 0)
     {
         // Error occurred
-        fprintf(stderr, "Fork Failed");
-        return 1;
+        perror("Forked Failed\n");
+        exit(1);
     }
     else if (pid == 0)
-    {   // child for pid
+    { // child for pid
         // Child
         char *arg_list[] = {
             "ls",
@@ -41,11 +35,9 @@ int main(int argc, char *argv[])
         printf("\nHit the return key to terminate the shell\n"); // prints
         char ch = getchar();                                     // Waits for return
 
-        if (ch == "\n")
+        if (ch == '\n')
         {
             exit(0);
         }
     }
-
-    return 0;
 }
