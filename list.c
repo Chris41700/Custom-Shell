@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
         }
 
         int fileBufferLength = strlen(fileBuffer) - 1;
-        fileBuffer[strlen(fileBufferLength - 1] = '\0';
+        fileBuffer[strlen(fileBufferLength - 1)] = '\0';
 
         close(arr[0]); /* close reading end of pipe */
         close(arr[1]); /* close writing end of pipe */
