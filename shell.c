@@ -49,11 +49,26 @@ char *read_line(void)
     // Buffer size is determined by input
     size_t bufsize = 0;
 
+    int count = 0;
+
     // Reads in the input
     if (getline(&line, &bufsize, stdin) == -1)
     {
         printf("Could not allocate memory for buffer");
         exit(1);
+    }
+    else
+    {
+        if (count < 4)
+        {
+            updateHistory[count] = malloc(strlen(line));
+            strcpy(updateHistory[count], line);
+            count++;
+        }
+        else
+        {
+            count = count % 4;
+        }
     }
 
     // Length of line
@@ -65,17 +80,17 @@ char *read_line(void)
         line[length - 1] = '\0';
     }
 
-    int count = 0;
+    /*
+       int count = 0;
 
-    if (count < 4)
-    {
-        updateHistory[count] = line;
-        count++;
-    }
-    else
-    {
-        count = count % 4;
-    }
+       if (count < 4) {
+               updateHistory[count] = malloc(strlen(line));
+               strcpy(updateHistory[count], line);
+               count++;
+       } else {
+               count = count % 4;
+       }
+    */
 
     return line;
 }
