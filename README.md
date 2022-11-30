@@ -14,6 +14,4 @@ Clone the repository from Github </br>
 ## Project Running
 
 ## Collaborators
-https://github.com/VincenzoCammilleri </br>
-https://github.com/Moh4Yemen </br>
-https://github.com/khadillacs
+
