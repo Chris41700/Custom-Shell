@@ -1,16 +1,18 @@
-# operating-systems-custom-commands
-A C program 
+# Operating Systems Custom Commands
+A C program which builds a shell environment with custom commands utilizing advanced programming techniques including process creation and control, file descriptors, signals, and pipes.
 
 ## How to install & run
 Clone the repository from Github </br>
 
+## Shell Format
+![image](https://user-images.githubusercontent.com/60550186/204927854-05fb925f-b7be-4c9b-bdc0-63e0bdbbf452.png)
 
 ## Custom Commands
-shell* - An environment that will execute the rest of the commands. The shell won't terminate unless the exit command gets executed. The shell displays a different command prompt (i.e. something other than $ and >). </br>
-tree* - Create a new directory called Dir0. Then, it will change the working directory to Dir0. Create three empty text files namely, t1.txt, t2.txt, t3.txt and one empty directory called Dir1 inside it. </br>
-list* - Clear the terminal screen and print a detailed list of all content of the current directory to the terminal and t1.txt. Finally, it will change the name of the text file to tree.txt. </br>
-path* - Print the path of the current directory to the terminal and t2.txt, and change the name of the text file to path.txt. Concatenate the content of tree.txt and path.txt into t3.txt and change the last to log.txt. Finally, delete tree.txt and path.txt. </br>
-exit* - Print a list of the last four commands to the terminal, a detailed list of all content of the current directory. Finally, wait for the user to hit the "return" key to terminate the shell and return the control to the original shell program on your machine. </br>
+_shell*_ - An environment that will execute the rest of the commands. The shell won't terminate unless the exit command gets executed. The shell displays a different command prompt (i.e. something other than $ and >). </br></br>
+_tree*_ - Create a new directory called Dir0. Then, it will change the working directory to Dir0. Create three empty text files namely, t1.txt, t2.txt, t3.txt and one empty directory called Dir1 inside it. </br></br>
+_list*_ - Clear the terminal screen and print a detailed list of all content of the current directory to the terminal and t1.txt. Finally, it will change the name of the text file to tree.txt. </br></br>
+_path*_ - Print the path of the current directory to the terminal and t2.txt, and change the name of the text file to path.txt. Concatenate the content of tree.txt and path.txt into t3.txt and change the last to log.txt. Finally, delete tree.txt and path.txt. </br></br>
+_exit*_ - Print a list of the last four commands to the terminal, a detailed list of all content of the current directory. Finally, wait for the user to hit the "return" key to terminate the shell and return the control to the original shell program on your machine. </br></br>
 
 ## Project Running
 
