@@ -14,4 +14,7 @@ Clone the repository from Github </br>
 ## Project Running
 
 ## Collaborators
-
+tree* - https://github.com/EstimadaE
+list* - https://github.com/khadillacs
+path* - https://github.com/PatrickLisiecki
+exit* - https://github.com/OscarJ202
