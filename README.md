@@ -4,8 +4,7 @@ A C program which builds a shell environment with custom commands utilizing adva
 ## How to install & run
 Clone the repository from Github on a Linux virtual machine </br>
 Enter the terminal and create an executable file </br>
-Run ``` gcc shell.c tree.c list.c path.c exit.c -o shell ``` </br>
-Execute ./shell </br>
+Run ``` gcc shell.c tree.c list.c path.c exit.c -o shell ``` and execute ./shell </br>
 
 
 ## Shell Format
