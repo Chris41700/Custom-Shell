@@ -15,7 +15,7 @@ _shell*_ - An environment in which the following commands will be executed. The 
 _tree*_ - Make a directory named Dir0. The working directory will then be changed to Dir0. Create three empty text files, t1.txt, t2.txt, and t3.txt, as well as one empty directory called Dir1 within it. </br></br>
 _list*_ - Clear the terminal screen and output a detailed list of the current directory's contents to the terminal and t1.txt. Finally, it will rename the text file to tree.txt. </br></br>
 _path*_ - Print the current directory's path to the terminal and t2.txt, and rename the text file path.txt. Concatenate the contents of tree.txt and path.txt into t3.txt and rename it log.txt. Finally, remove tree.txt and path.txt from the directory. </br></br>
-_exit*_ - Print a list of the previous four commands to the terminal, as well as a full list of the current directory's contents. Finally, wait for the user to press the "return" key to end the shell and return control to the actual shell software on your system. </br></br>
+_exit*_ - Print a list of the previous four commands to the terminal, as well as a full list of the current directory's contents. Finally, wait for the user to press the "return" key to end the shell and return control to the actual shell software on your system. </br>
 
 ## Project Running
 ![2022-12-01 00-42-42](https://user-images.githubusercontent.com/60550186/204976739-52f93856-e6ba-4568-a77e-7d12dff93acd.gif)
