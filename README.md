@@ -18,6 +18,7 @@ _path*_ - Print the path of the current directory to the terminal and t2.txt, an
 _exit*_ - Print a list of the last four commands to the terminal, a detailed list of all content of the current directory. Finally, wait for the user to hit the "return" key to terminate the shell and return the control to the original shell program on your machine. </br></br>
 
 ## Project Running
+![2022-12-01 00-42-42](https://user-images.githubusercontent.com/60550186/204976739-52f93856-e6ba-4568-a77e-7d12dff93acd.gif)
 
 ## Collaborators
 tree* - https://github.com/EstimadaE </br>
