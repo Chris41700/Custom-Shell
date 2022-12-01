@@ -9,7 +9,7 @@ Execute ./shell </br>
 
 
 ## Shell Format
-![image](https://user-images.githubusercontent.com/60550186/204927854-05fb925f-b7be-4c9b-bdc0-63e0bdbbf452.png)
+!![image](https://user-images.githubusercontent.com/60550186/204936695-8195fe39-8a63-4e6c-8ea2-d5e8059a0a15.png)
 
 ## Custom Commands
 _shell*_ - An environment that will execute the rest of the commands. The shell won't terminate unless the exit command gets executed. The shell displays a different command prompt (i.e. something other than $ and >). </br></br>
