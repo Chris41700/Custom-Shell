@@ -2,9 +2,9 @@
 A C program which builds a shell environment with custom commands utilizing advanced programming techniques including process creation and control, file descriptors, signals, and pipes.
 
 ## How to install & run
-- Clone the repository from Github on a Linux virtual machine </br>
-- Enter the terminal and run ``` gcc shell.c tree.c list.c path.c exit.c -o shell ``` </br>
-- Run the executable file in the terminal using ``` ./shell ```</br>
+- Clone the repository from Github on a Linux virtual machine
+- Enter the terminal and run ``` gcc shell.c tree.c list.c path.c exit.c -o shell ``` 
+- Run the executable file in the terminal using ``` ./shell ```
 
 
 ## Shell Format
