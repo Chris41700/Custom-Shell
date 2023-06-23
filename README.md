@@ -1,4 +1,4 @@
-# Operating Systems Custom Commands
+# Custom Shell+
 A C program which builds a shell environment with custom commands utilizing advanced programming techniques including process creation and control, file descriptors, signals, and pipes.
 
 ## How to install & run
